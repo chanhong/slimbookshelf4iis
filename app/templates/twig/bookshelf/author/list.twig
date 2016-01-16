@@ -1,0 +1,14 @@
+{% extends layout %}
+
+{% set title = 'Authors' %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+
+<ul>
+{% for author in authors %}
+    <li><a href="{{ path_for('author', {author_id: author.id}) }}">{{ author.name }}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}

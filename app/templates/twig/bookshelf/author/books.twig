@@ -1,0 +1,24 @@
+{% extends layout %}
+
+{% set title = 'Books by ' ~ author.name %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+{{ flash_messages() }}
+<p>{{ author.biography }}</p>
+
+
+<h2>Books</h2>
+<ul>
+{% for book in books %}
+    <li>{{ book.title }}</li>
+{% endfor %}
+</ul>
+
+<p>
+    <a href="{{ path_for('list-authors') }}">Return</a>
+    | <a href="{{ path_for('edit-author', {author_id: author.id}) }}">Edit author details</a>
+</p>
+
+{% endblock %}
