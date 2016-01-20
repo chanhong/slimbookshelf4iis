@@ -3,14 +3,15 @@ namespace Bookshelf\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Valitron\Validator;
+use Bookshelf\Lib\BaseModel;
 
-final class Author extends Model
+final class Author extends BaseModel
 {
     /**
      * Turn off the created_at & updated_at columns
      * @var boolean
      */
-    public $timestamps = false;
+//    public $timestamps = false;
 
     /**
      * Fields that can be updated via update()

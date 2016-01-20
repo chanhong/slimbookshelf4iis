@@ -17,7 +17,7 @@ $container['view'] = function ($c) {
     echo "uri: ".$c['request']->getUri();
     $view->addExtension(new Slim\Views\TwigExtension($c['router'], $c['request']->getUri()));
     $view->addExtension(new Twig_Extension_Debug());
-    $view->addExtension(new Bookshelf\TwigExtension($c['flash']));
+    $view->addExtension(new Bookshelf\Lib\TwigExtension($c['flash']));
 
     return $view;
 };
@@ -38,12 +38,12 @@ $container['flash'] = function ($c) {
 };
 
 // controller
-$container['Bookshelf\AuthorController'] = function ($c) {
-    return new Bookshelf\AuthorController($c['view'], $c['router'], $c['flash']);
+$container['Bookshelf\Controllers\AuthorController'] = function ($c) {
+    return new Bookshelf\Controllers\AuthorController($c['view'], $c['router'], $c['flash'], $c['settings']['tpl']);
 };
 
-$container['Bookshelf\BookController'] = function ($c) {
-    return new Bookshelf\BookController($c['view'], $c['router'], $c['flash']);
+$container['Bookshelf\Controllers\BookController'] = function ($c) {
+    return new Bookshelf\Controllers\BookController($c['view'], $c['router'], $c['flash'], $c['settings']['tpl']);
 };
 
 $container['phpview'] = function ($c) {

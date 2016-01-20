@@ -3,24 +3,25 @@
 // chdir(dirname(__DIR__));
 if (!defined('LAYOUT')) define('LAYOUT', 'layout.twig');
 if (!defined('CACHEROOT')) define('CACHEROOT', getenv('TEMP'));
+if (!defined('CONFROOT')) define('CONFROOT', DOCROOT.'/app/src/Conf/');
 
 require DOCROOT . '/vendor/autoload.php';
 session_start();
 
-if (file_exists(DOCROOT .'/app/settings.php')) {
-    $settings = require DOCROOT .'/app/settings.php';
+if (file_exists(CONFROOT . 'settings.php')) {
+    $settings = require CONFROOT . 'settings.php';
 } else {
-    $settings = require DOCROOT .'/app/settings.php.dist';
+    $settings = require CONFROOT . 'settings.php.dist';
 }
 
 // Instantiate Slim
 $app = new \Slim\App($settings);
 
-require DOCROOT .'/app/src/dependencies.php';
-require DOCROOT .'/app/src/middleware.php';
+require CONFROOT . 'dependencies.php';
+require CONFROOT . 'middleware.php';
 
 // Register the routes
-require DOCROOT .'/app/src/routes.php';
+require CONFROOT . 'routes.php';
 
 // Register the database connection with Eloquent
 $capsule = $app->getContainer()->get('capsule');

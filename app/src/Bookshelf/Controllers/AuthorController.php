@@ -1,37 +1,26 @@
 <?php
 
-namespace Bookshelf;
+namespace Bookshelf\Controllers;
 
 use Slim\Views\Twig;
 use Slim\Router;
 use Slim\Flash\Messages as FlashMessages;
 use Bookshelf\Models\Author;
+use Bookshelf\Lib\BaseController;
 
-final class AuthorController
+final class AuthorController extends BaseController
 {
-    private $view;
-    private $router;
-    private $flash;
-    private $pubdir;
-    private $layout;
-
-    public function __construct(Twig $view, Router $router, FlashMessages $flash)
-    {
-        $this->view = $view;
-        $this->router = $router;
-        $this->flash = $flash;
-        if (defined('PUBDIR')) $this->pubdir = '/'.constant("PUBDIR");
-        if (defined('LAYOUT')) $this->layout = constant("LAYOUT");
+    public function __construct(Twig $view, Router $router, FlashMessages $flash, Array $settings) {
+        parent::__construct($view, $router, $flash, $settings);
     }
-
+    
     public function listAuthors($request, $response)
     {
-        echo "lay: ".constant("LAYOUT");
-        return $this->view->render($response, 'bookshelf/author/list.twig', [
-            'authors' => Author::all(),
-            'public'=> $this->pubdir,
-            'layout'=> $this->layout,
-        ]);
+        return $this->view->render($response, 'bookshelf/author/list.twig', 
+            array_merge($this->settings['tpl'], [
+                'authors' => Author::all(),
+            ])
+        );
     }
 
     public function listBooks($request, $response, $params)
@@ -44,12 +33,13 @@ final class AuthorController
             }
             $books = $author->books;
         }
-        return $this->view->render($response, 'bookshelf/author/books.twig', [
-            'author' => $author,
-            'books' => $books,
-            'public'=> $this->pubdir,
-            'layout'=> $this->layout,
-        ]);
+        
+        return $this->view->render($response, 'bookshelf/author/books.twig', 
+            array_merge($this->settings['tpl'], [
+                'author' => $author,
+                'books' => $books,
+            ])
+        );
     }
 
     public function editAuthor($request, $response, $params)
@@ -80,15 +70,15 @@ final class AuthorController
             }
         }
 
-        return $this->view->render($response, 'bookshelf/author/edit.twig', [
-            'author' => $author,
-            'errors' => $errors,
-            'csrf' => [
-                        'name' => $request->getAttribute('csrf_name'),
-                        'value' => $request->getAttribute('csrf_value'),
-                      ],
-            'public'=> $this->pubdir,
-            'layout'=> $this->layout,
-        ]);
+        return $this->view->render($response, 'bookshelf/author/edit.twig', 
+            array_merge($this->settings['tpl'], [
+                'author' => $author,
+                'errors' => $errors,
+                'csrf' => [
+                            'name' => $request->getAttribute('csrf_name'),
+                            'value' => $request->getAttribute('csrf_value'),
+                        ],
+            ])
+        );
     }
 }

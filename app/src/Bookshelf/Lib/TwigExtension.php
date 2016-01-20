@@ -1,5 +1,5 @@
 <?php
-namespace Bookshelf;
+namespace Bookshelf\Lib;
 
 class TwigExtension extends \Twig_Extension
 {
