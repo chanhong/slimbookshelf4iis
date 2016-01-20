@@ -1,6 +1,6 @@
 <?php
 
-namespace Bookshelf\Lib;
+namespace Lib;
 
 use Slim\Views\Twig;
 use Slim\Router;

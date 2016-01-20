@@ -1,5 +1,5 @@
 <?php
-namespace Bookshelf\Lib;
+namespace Lib;
 
 use Illuminate\Database\Eloquent\Model;
 use Valitron\Validator;

@@ -2,7 +2,7 @@
 namespace Bookshelf\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Bookshelf\Lib\BaseModel;
+use Lib\BaseModel;
 
 final class Book extends BaseModel
 {

@@ -17,7 +17,7 @@ $container['view'] = function ($c) {
     echo "uri: ".$c['request']->getUri();
     $view->addExtension(new Slim\Views\TwigExtension($c['router'], $c['request']->getUri()));
     $view->addExtension(new Twig_Extension_Debug());
-    $view->addExtension(new Bookshelf\Lib\TwigExtension($c['flash']));
+    $view->addExtension(new Lib\TwigExtension($c['flash']));
 
     return $view;
 };
