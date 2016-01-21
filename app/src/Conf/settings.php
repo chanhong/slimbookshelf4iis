@@ -17,7 +17,7 @@ return [
             'prefix'    => '',
         ],
         'view' => [
-            'template_path' => DOCROOT .'/app/templates/twig',
+            'template_path' => DOCROOT .'/app/src/Bookshelf/Views/twig',
             'twig' => [
                 'cache' => CACHEROOT .'/cache/twig',
                 'debug' => true,

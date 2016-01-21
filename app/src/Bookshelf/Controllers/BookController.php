@@ -17,7 +17,7 @@ final class BookController extends BaseController
     
     public function listBooks($request, $response, $params)
     {
-        return $this->view->render($response, 'bookshelf/book/list.twig',
+        return $this->view->render($response, 'book/list.twig',
             array_merge($this->settings['tpl'], [
                 'books' => Book::all(),
             ])

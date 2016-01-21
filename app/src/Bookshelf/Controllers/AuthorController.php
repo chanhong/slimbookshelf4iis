@@ -16,7 +16,7 @@ final class AuthorController extends BaseController
     
     public function listAuthors($request, $response)
     {
-        return $this->view->render($response, 'bookshelf/author/list.twig', 
+        return $this->view->render($response, 'author/list.twig', 
             array_merge($this->settings['tpl'], [
                 'authors' => Author::all(),
             ])
@@ -34,7 +34,7 @@ final class AuthorController extends BaseController
             $books = $author->books;
         }
         
-        return $this->view->render($response, 'bookshelf/author/books.twig', 
+        return $this->view->render($response, 'author/books.twig', 
             array_merge($this->settings['tpl'], [
                 'author' => $author,
                 'books' => $books,
@@ -70,7 +70,7 @@ final class AuthorController extends BaseController
             }
         }
 
-        return $this->view->render($response, 'bookshelf/author/edit.twig', 
+        return $this->view->render($response, 'author/edit.twig', 
             array_merge($this->settings['tpl'], [
                 'author' => $author,
                 'errors' => $errors,
