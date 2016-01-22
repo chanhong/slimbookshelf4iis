@@ -1,6 +1,6 @@
 <?php
 
-namespace Lib;
+namespace MVC4Slim;
 
 use Slim\Views\Twig;
 use Slim\Router;

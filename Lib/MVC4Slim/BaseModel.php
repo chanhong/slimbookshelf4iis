@@ -1,5 +1,5 @@
 <?php
-namespace Lib;
+namespace MVC4Slim;
 
 use Illuminate\Database\Eloquent\Model;
 use Valitron\Validator;

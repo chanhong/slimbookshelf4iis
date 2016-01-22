@@ -1,20 +1,20 @@
 {
-    "name": "akrabat/slim-bookshelf",
-    "description": "Example Slim Framework 3 application.",
+    "name": "chanhong/slimbookshelf4iis",
+    "description": "Example Slim Framework 3 application for IIS.",
     "license": "BSD-3-Clause",
     "type": "project",
     "keywords": ["slim-framework"],
     "authors": [
         {
-            "name": "Rob Allen",
-            "email": "rob@akrabat.com",
-            "homepage": "http://akrabat.com"
+            "name": "Chanh Ong",
+            "email": "chanh.ong@gmail.com",
+            "homepage": "http://ongetc.com"
         }
     ],
     "autoload": {
         "psr-4": {
-            "Lib\\": "app/src/Lib",
-            "Bookshelf\\": "app/src/Bookshelf"
+            "MVC4Slim\\": "Lib/MVC4Slim",
+            "Bookshelf\\": "app/Bookshelf"
         }
     },
     "require": {

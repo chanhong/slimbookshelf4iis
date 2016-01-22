@@ -3,7 +3,7 @@
 // chdir(dirname(__DIR__));
 if (!defined('LAYOUT')) define('LAYOUT', 'layout.twig');
 if (!defined('CACHEROOT')) define('CACHEROOT', getenv('TEMP'));
-if (!defined('CONFROOT')) define('CONFROOT', DOCROOT.'/app/src/Conf/');
+if (!defined('CONFROOT')) define('CONFROOT', DOCROOT.'/app/Bookshelf/Conf/');
 
 require DOCROOT . '/vendor/autoload.php';
 session_start();

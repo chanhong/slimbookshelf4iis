@@ -6,7 +6,7 @@ use Slim\Views\Twig;
 use Slim\Router;
 use Slim\Flash\Messages as FlashMessages;
 use Bookshelf\Models\Author;
-use Lib\BaseController;
+use MVC4Slim\BaseController;
 
 final class AuthorController extends BaseController
 {

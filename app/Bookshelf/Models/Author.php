@@ -3,7 +3,7 @@ namespace Bookshelf\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Valitron\Validator;
-use Lib\BaseModel;
+use MVC4Slim\BaseModel;
 
 final class Author extends BaseModel
 {

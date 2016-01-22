@@ -4,31 +4,30 @@
 
 return [
     'settings' => [
-        'displayErrorDetails' => true,         
         'db' => [
             // Illuminate/database configuration
             'driver'    => 'mysql',
             'host'      => 'localhost',
             'database'  => 'bookshelf',
-            'username'  => 'root',
-            'password'  => 'mysql8510',
+            'username'  => 'bookshelf',
+            'password'  => 'bookshelf',
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
         ],
         'view' => [
-            'template_path' => DOCROOT .'/app/src/Bookshelf/Views/twig',
+            'template_path' => 'app/Bookshelf/Views/twig',
             'twig' => [
-                'cache' => CACHEROOT .'/cache/twig',
+                'cache' => 'cache/twig',
                 'debug' => true,
             ],
         ],
         'phpview' => [
-            'template_path' => DOCROOT .'/app/templates/phpview',
+            'template_path' => '/app/Bookshelf/Views/phpview',
         ],
         'tpl' => [
-            'selected_layout' => constant("LAYOUT"),
-            'pubdir' => constant("PUBDIR"),
+            'layout' => 'layout.twig',
+            'pubdir' => 'public',
         ],
     ],
 ];

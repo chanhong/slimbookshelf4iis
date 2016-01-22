@@ -2,7 +2,7 @@
 namespace Bookshelf\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Lib\BaseModel;
+use MVC4Slim\BaseModel;
 
 final class Book extends BaseModel
 {
