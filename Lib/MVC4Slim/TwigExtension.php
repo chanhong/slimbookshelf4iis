@@ -15,7 +15,7 @@ class TwigExtension extends \Twig_Extension
 
     public function getName()
     {
-        return 'bookshelf';
+        return 'mvc4slim';
     }
 
     public function getFunctions()
