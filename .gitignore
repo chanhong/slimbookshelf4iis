@@ -3,3 +3,5 @@ vendor
 bin
 cache
 /app/settings.php
+/nbproject/private/
+/app/Bookshelf/Conf/settings.php

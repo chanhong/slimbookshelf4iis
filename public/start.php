@@ -23,8 +23,6 @@ require CONFROOT . 'middleware.php';
 // Register the routes
 require CONFROOT . 'routes.php';
 
-// Register the database connection with Eloquent
-$capsule = $app->getContainer()->get('capsule');
-$capsule->bootEloquent();
-
+// Register the database connection with PdoLite
+$pdolite = $app->getContainer()->get('pdolite');
 $app->run();

@@ -1,10 +1,10 @@
 <?php
-namespace MVC4Slim;
+namespace Lib\MVC4Slim;
 
-use Illuminate\Database\Eloquent\Model;
 use Valitron\Validator;
+use PdoLite\PdoLite;
 
-class BaseModel extends Model
+class BaseModel extends PdoLite
 {
     /**
      * Turn off the created_at & updated_at columns
@@ -12,4 +12,5 @@ class BaseModel extends Model
      */
     public $timestamps = false;
 
+    
 }

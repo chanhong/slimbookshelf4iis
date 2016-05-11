@@ -1,13 +1,19 @@
 <?php
 namespace Bookshelf\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use MVC4Slim\BaseModel;
+use Lib\MVC4Slim\BaseModel;
 
 final class Book extends BaseModel
 {
-    public function author()
+    public static function all()
     {
-        return $this->belongsTo('Bookshelf\Models\Author');
+        return self::select("books");
     }
+    
+    // not seem to be used?
+    public function xauthor()
+    {
+//        return $this->belongsTo('Bookshelf\Models\Author');
+    }
+    
 }

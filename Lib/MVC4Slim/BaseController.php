@@ -1,6 +1,6 @@
 <?php
 
-namespace MVC4Slim;
+namespace Lib\MVC4Slim;
 
 use Slim\Views\Twig;
 use Slim\Router;
@@ -8,6 +8,7 @@ use Slim\Flash\Messages as FlashMessages;
 
 class BaseController
 {
+    public $app;
     public $view;
     public $router;
     public $flash;
@@ -16,14 +17,18 @@ class BaseController
     private $pubdir;
     private $selected_layout;
 
-    public function __construct(Twig $view, Router $router, FlashMessages $flash, Array $settings)
+    public function __construct($app)
     {
-        $this->view = $view;
-        $this->router = $router;
-        $this->flash = $flash;
-        if (!empty($settings['pubdir'])) $this->pubdir = '/'. $settings['pubdir'];
-        if (!empty($settings['selected_layout'])) $this->selected_layout = $settings['selected_layout'];
-        $this->settings['tpl'] = ['pubdir'=> $this->pubdir,'selected_layout'=> $this->selected_layout];
+        $this->app = $app;
+        $this->view = $app->view;
+        $this->router = $app->router;
+        $this->flash = $app->flash;
+        $this->settings = $app->settings;
+
+
+        if (!empty($app->settings['tpl']['pubdir'])) $this->pubdir = '/'. $app->settings['tpl']['pubdir'];
+        if (!empty($app->settings['tpl']['selected_layout'])) $this->selected_layout = $app->settings['tpl']['selected_layout'];
+        $this->app->settings['tpl'] = ['pubdir'=> $this->pubdir,'selected_layout'=> $this->selected_layout];
     }
 
 }

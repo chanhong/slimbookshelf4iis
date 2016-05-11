@@ -1,9 +1,9 @@
 <?php
 namespace Bookshelf\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Valitron\Validator;
-use MVC4Slim\BaseModel;
+use Lib\MVC4Slim\BaseModel;
+use PdoLite\PdoLite;
 
 final class Author extends BaseModel
 {
@@ -19,20 +19,31 @@ final class Author extends BaseModel
      */
     protected $fillable = ['name', 'biography'];
 
-    public function books()
-    {
-        return $this->hasMany('Bookshelf\Models\Book');
+    public static function all() {
+        
+        return self::select("authors");
+    }
+
+    public static function find_me($author_id) {
+        $sql = self::qbSelect("authors", ['where'=>"id=".$author_id]);
+        return self::findRow($sql,"obj");
+    }
+    
+    public function books($author_id) {
+        
+        return self::select("books", ['where'=>"author_id=".$author_id]);
     }
 
     /**
      * Update author with new data
      *
-     * @param  arrray $attributes
+     * @param  $id arrray $attributes
      * @return null
      */
-    public function update(array $attributes = [], array $options = [])
-    {
+    public function doUpdate($id, array $attributes = [], array $options = []) {
+        
         $validator = $this->getValidator($attributes);
+        
         if (!$validator->validate()) {
             $messages = [];
             foreach ($validator->errors() as $fieldName => $errors) {
@@ -42,7 +53,8 @@ final class Author extends BaseModel
             throw new \Exception($message);
         }
 
-        return parent::update($attributes);
+        $one = PdoLite::filterBySchema("authors", $attributes);
+        return self::update("authors", ['fl'=>$one,'where'=>"id=".$id]);
     }
 
     /**
@@ -51,8 +63,8 @@ final class Author extends BaseModel
      * @param  Array $data Data to be validated
      * @return Validator
      */
-    public function getValidator($data)
-    {
+    public function getValidator($data) {
+        
         $validator = new Validator($data);
 
         $validator->rule('required', 'name');

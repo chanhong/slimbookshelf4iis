@@ -6,13 +6,10 @@ use Slim\Views\Twig;
 use Slim\Router;
 use Slim\Flash\Messages as FlashMessages;
 use Bookshelf\Models\Author;
-use MVC4Slim\BaseController;
+use Lib\MVC4Slim\BaseController;
 
 final class AuthorController extends BaseController
 {
-    public function __construct(Twig $view, Router $router, FlashMessages $flash, Array $settings) {
-        parent::__construct($view, $router, $flash, $settings);
-    }
     
     public function listAuthors($request, $response)
     {
@@ -26,17 +23,19 @@ final class AuthorController extends BaseController
     public function listBooks($request, $response, $params)
     {
         if (isset($params['author_id'])) {
-            $author = Author::find((int)$params['author_id']);
-            if (!$author) {
+            
+            $author = new Author();
+            $author_found = $author->find_me((int)$params['author_id']);
+            if (!$author_found) {
                 // not found
                 throw new \Exception("Author {$params['author_id']} not found");
             }
-            $books = $author->books;
+            $books = $author->books((int)$params['author_id']);
         }
         
         return $this->view->render($response, 'author/books.twig', 
             array_merge($this->settings['tpl'], [
-                'author' => $author,
+                'author' => $author_found,
                 'books' => $books,
             ])
         );
@@ -44,25 +43,31 @@ final class AuthorController extends BaseController
 
     public function editAuthor($request, $response, $params)
     {
-        $author = Author::find((int)$params['author_id']);
-        if (!$author) {
+        $author = new Author();
+        $author_found = $author->find_me((int)$params['author_id']);
+        if (!$author_found) {
             $uri = $request->getUri()->withQuery('')->withPath($this->router->pathFor('list-authors'));
             return $response->withRedirect((string)$uri);
         }
 
         $errors = null;
         if ($request->isPost()) {
+            
             if ($request->getAttribute('csrf_status') === false) {
                 $errors['form'] = 'CSRF faiure';
             } else {
+                
                 $data = $request->getParsedBody();
                 $validator = $author->getValidator($data);
+                
                 if ($validator->validate()) {
-                    $author->update($data);
+                    $author->doUpdate($author_found->id, $data);
+
+                    $uri = $request->getUri()->withQuery('')->withPath($this->router->pathFor('author', ['author_id' => $author_found->id]));
 
                     $this->flash->addMessage('message', 'Author updated');
-                    
-                    $uri = $request->getUri()->withQuery('')->withPath($this->router->pathFor('author', ['author_id' => $author->id]));
+                    print_r($uri);
+
                     return $response->withRedirect((string)$uri);
                 } else {
                     $errors = $validator->errors();
@@ -72,12 +77,14 @@ final class AuthorController extends BaseController
 
         return $this->view->render($response, 'author/edit.twig', 
             array_merge($this->settings['tpl'], [
-                'author' => $author,
+                'author' => $author_found,
                 'errors' => $errors,
+                
                 'csrf' => [
                             'name' => $request->getAttribute('csrf_name'),
                             'value' => $request->getAttribute('csrf_value'),
                         ],
+                        
             ])
         );
     }

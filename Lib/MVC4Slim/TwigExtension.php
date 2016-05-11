@@ -1,5 +1,5 @@
 <?php
-namespace MVC4Slim;
+namespace Lib\MVC4Slim;
 
 class TwigExtension extends \Twig_Extension
 {
